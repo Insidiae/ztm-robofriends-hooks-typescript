@@ -1,10 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import CardList from "../components/CardList";
 import SearchBox from "../components/SearchBox";
 import Scroll from "../components/Scroll";
 import "./App.css";
 
-function App() {
+export interface IRobot {
+  name: string;
+  id: string;
+  email: string;
+}
+
+const App: React.FunctionComponent = () => {
   const [robots, setRobots] = useState([]);
   const [searchfield, setSearchfield] = useState("");
   // const [count, setCount] = useState(0) // for demo purposes
@@ -18,11 +24,11 @@ function App() {
     // console.log(count)
   }, []); // if you add count, only run if count changes.
 
-  const onSearchChange = (event) => {
+  const onSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchfield(event.target.value);
   };
 
-  const filteredRobots = robots.filter((robot) => {
+  const filteredRobots: Array<IRobot> = robots.filter((robot: IRobot) => {
     return robot.name.toLowerCase().includes(searchfield.toLowerCase());
   });
 
@@ -38,6 +44,6 @@ function App() {
       </Scroll>
     </div>
   );
-}
+};
 
 export default App;
